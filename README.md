@@ -1,4 +1,4 @@
-## 此篇介紹 import zxing project 與 修改掃瞄範圍
+## 此篇介紹 zxing project 使用
 
 #### 匯入 zxing 專案
 - 可去作者專欄下載範例檔 或 此頁的zip檔案
@@ -20,6 +20,35 @@ allprojects {
 }
 ```
 - 即可完成匯入
+
+#### 使用 zxing 掃描
+- 加入 :
+```java
+IntentIntegrator integrator = new IntentIntegrator(activity);
+integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
+integrator.setPrompt("掃描條碼");
+integrator.setCameraId(0);
+integrator.setBeepEnabled(false);
+integrator.setCaptureActivity(AnyOrientationCaptureActivity.class);
+integrator.setOrientationLocked(false);
+integrator.initiateScan();
+```
+- 接收掃描完結果 :
+```java
+ @Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+    if(result != null) {
+        if(result.getContents() == null) {return;}
+        else {      
+            Log.i("tag",result.getContents());//掃描完結果
+        }
+    } else {
+        // This is important, otherwise the result will not be passed to the fragment
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+}
+```
 
 #### 使用垂直掃描
 - 於自己專案新創java檔案
