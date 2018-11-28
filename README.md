@@ -1,6 +1,6 @@
 ## 此篇介紹 import zxing project 與 修改掃瞄範圍
 
-#### import zxing project
+#### 匯入 zxing 專案
 - 請去作者下載範例檔 : https://github.com/zxing/zxing/releases
 - 下載後請將 zxing-android-embedded 檔案複製至自己專案資料夾內
 - 開啟 android studio 進入專案app
@@ -39,7 +39,7 @@ allprojects {
 #### 更改掃瞄範圍
 - 到 CameraPreview.java 內的 calculateFrames 方法內
 - 重新設定 framingRect
-- 例:
+- 例 :
 ```java
 private void calculateFrames() {
     if (containerSize == null || previewSize == null || displayConfiguration == null) {
