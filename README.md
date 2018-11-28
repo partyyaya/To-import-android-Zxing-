@@ -1,7 +1,8 @@
 ## 此篇介紹 import zxing project 與 修改掃瞄範圍
 
 #### 匯入 zxing 專案
-- 請去作者下載範例檔 : https://github.com/zxing/zxing/releases
+- 可去作者專欄下載範例檔 或 此頁的zip檔案
+  - 作者專欄範例檔位置 : https://github.com/zxing/zxing/releases
 - 下載後請將 zxing-android-embedded 檔案複製至自己專案資料夾內
 - 開啟 android studio 進入專案app
 - 到 settings.gradle 新增:include ':zxing-android-embedded'
