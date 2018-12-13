@@ -1,11 +1,14 @@
 ## 此篇介紹 zxing project 使用
 
-<a id="top"></a>
-<a href="#s1">匯入 zxing 專案</a>
-<a href="#s2">使用 zxing 掃描</a>
-<a href="#s3">使用 垂直 掃描</a>
-<a href="#s4">更改掃瞄範圍</a>
-<a href="#s5">觸碰更改掃瞄範圍</a>
+<a id="top"></a><br/>
+
+|項目|
+|:---|
+| <a href="#s1">匯入 zxing 專案</a> |
+| <a href="#s2">使用 zxing 掃描</a> |
+| <a href="#s3">使用 垂直 掃描</a> |
+| <a href="#s4">更改掃瞄範圍</a> |
+| <a href="#s5">觸碰更改掃瞄範圍</a> | 
 
 #### <a id="s1" href="#top">匯入 zxing 專案</a>
 - 可去作者專欄下載範例檔 或 此頁的zip檔案
