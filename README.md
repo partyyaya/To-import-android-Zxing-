@@ -113,8 +113,8 @@ private void calculateFrames() {
 
 #### 觸碰改變掃瞄範圍
 - 找到ViewfinderView.java
-- 新增宣告觸碰位置: ```private int gTouchX1, gTouchY1, gTouchX2, gTouchY2;```
-- 得到觸碰座標:
+- 新增宣告觸碰位置 : ```private int gTouchX1, gTouchY1, gTouchX2, gTouchY2;```
+- 得到觸碰座標 :
 ```java
 private OnTouchListener handleTouch = new OnTouchListener() {
         @Override
@@ -147,6 +147,74 @@ private OnTouchListener handleTouch = new OnTouchListener() {
     };
 ```
 
-- 於ViewfinderView.java 的 onDraw函數內加入:```this.setOnTouchListener(handleTouch);```
+- 於ViewfinderView.java 的 onDraw函數內加入(refreshSizes之前) : ```this.setOnTouchListener(handleTouch);```
+- 於CameraPreview.java 新增宣告(四邊) : ```public int newTop = 0,newBottom = 0,newLeft = 0,newRight = 0;```
+- 於getFramingRect()與getPreviewFramingRect()加入 :
+```java
+if(framingRect != null && newTop!=0 && newRight!=0 && newBottom!=0 && newLeft!=0){
+    framingRect.set(newLeft,newTop,newRight,newBottom);
+}
+//與
+if(previewFramingRect != null && newTop!=0 && newRight!=0 && newBottom!=0 && newLeft!=0){
+    previewFramingRect.set(newLeft,newTop,newRight,newBottom);
+}
+```
+- 改變ViewfinderView.java 的 refreshSizes() :
+```java
+protected void refreshSizes() {
+    if(cameraPreview == null) {
+        return;
+    }
+    //觸碰範圍
+    int range = 20;
+    
+    //初始化設定
+    Rect framingRect = cameraPreview.getFramingRect();
+    Rect previewFramingRect = cameraPreview.getPreviewFramingRect();
+    
+    if(framingRect != null && previewFramingRect !=null){
+        cameraPreview.newTop = framingRect.top;
+        cameraPreview.newRight = framingRect.right;
+        cameraPreview.newBottom = framingRect.bottom;
+        cameraPreview.newLeft = framingRect.left;
 
-      
+        //若有觸碰則判斷是否改變掃瞄範圍
+        if(gTouchX1 != 0 && gTouchY1 >= framingRect.top && gTouchY1 <= framingRect.bottom){
+            if(abs(gTouchX1-framingRect.left) < range){
+                cameraPreview.newLeft = gTouchX1;
+            }else if(abs(gTouchX1-framingRect.right) < range){
+                cameraPreview.newRight = gTouchX1;
+            }
+        }
+        if(gTouchY1 != 0 && gTouchX1 >= framingRect.left && gTouchX1 <= framingRect.right){
+            if(abs(gTouchY1-framingRect.top) < range){
+                cameraPreview.newTop = gTouchY1;
+            }else if(abs(gTouchY1-framingRect.bottom) < range){
+                cameraPreview.newBottom = gTouchY1;
+            }
+        }
+        if(gTouchX2 != 0 && gTouchY2 >= framingRect.top && gTouchY2 <= framingRect.bottom){
+            if(abs(gTouchX2-framingRect.left) < range){
+                cameraPreview.newLeft = gTouchX2;
+            }else if(abs(gTouchX2-framingRect.right) < range){
+                cameraPreview.newRight = gTouchX2;
+            }
+        }
+        if(gTouchY2 != 0 && gTouchX2 >= framingRect.left && gTouchX2 <= framingRect.right){
+            if(abs(gTouchY2-framingRect.top) < range){
+                cameraPreview.newTop = gTouchY2;
+            }else if(abs(gTouchY2-framingRect.bottom) < range){
+                cameraPreview.newBottom = gTouchY2;
+            }
+        }
+        //重繪掃描區域
+        framingRect = cameraPreview.getFramingRect();
+        previewFramingRect = cameraPreview.getPreviewFramingRect();
+    }
+
+    if(framingRect != null && previewFramingRect != null) {
+        this.framingRect = framingRect;
+        this.previewFramingRect = previewFramingRect;
+    }
+}
+```
