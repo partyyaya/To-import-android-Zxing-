@@ -110,6 +110,43 @@ private void calculateFrames() {
     }
 }
 ```
-       
+
+#### 觸碰改變掃瞄範圍
+- 找到ViewfinderView.java
+- 新增宣告觸碰位置: ```private int gTouchX1, gTouchY1, gTouchX2, gTouchY2;```
+- 得到觸碰座標:
+```java
+private OnTouchListener handleTouch = new OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            int pointerCount = event.getPointerCount();  // 幾個觸控點
+            switch( event.getAction() )
+            {
+                case MotionEvent.ACTION_DOWN:  // 按下
+                    break;
+                case MotionEvent.ACTION_MOVE:  // 拖曳移動
+                    if( pointerCount == 1 ){     // 單點觸控
+                        gTouchX1 = (int) event.getX();
+                        gTouchY1 = (int) event.getY();
+                    }
+                    else if( pointerCount == 2 ){  // 多點觸控
+                        gTouchX1 = (int) event.getX(0);  // 第一個觸控點
+                        gTouchY1 = (int) event.getY(0);
+                        gTouchX2 = (int) event.getX(1);  // 第二個觸控點
+                        gTouchY2 = (int) event.getY(1);
+                    }
+                    // 重繪, 再一次執行 onDraw 程序
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:    // 放開
+                    break;
+            }
+            // TODO Auto-generated method stub
+            return true;
+        }
+    };
+```
+
+- 於ViewfinderView.java 的 onDraw函數內加入:```this.setOnTouchListener(handleTouch);```
 
       
