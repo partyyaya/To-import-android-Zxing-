@@ -111,7 +111,7 @@ private void calculateFrames() {
 }
 ```
 
-#### 觸碰改變掃瞄範圍(90%完成)
+#### 觸碰改變掃瞄範圍
 - 找到ViewfinderView.java
 - 新增宣告觸碰位置 : ```private int gTouchX1, gTouchY1, gTouchX2, gTouchY2;```
 - 得到觸碰座標 :
@@ -167,7 +167,7 @@ protected void refreshSizes() {
    if(cameraPreview == null) {
           return;
    }
-  int range = 20;
+  int range = 20;//手指觸碰範圍
   Rect framingRect = cameraPreview.getFramingRect();
   Rect previewFramingRect = cameraPreview.getPreviewFramingRect();
   if(framingRect != null && previewFramingRect !=null){
