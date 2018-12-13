@@ -2,6 +2,10 @@
 
 <a id="top"></a>
 <a href="#s1">匯入 zxing 專案</a>
+<a href="#s2">使用 zxing 掃描</a>
+<a href="#s3">使用 垂直 掃描</a>
+<a href="#s4">更改掃瞄範圍</a>
+<a href="#s5">觸碰更改掃瞄範圍</a>
 
 #### <a id="s1" href="#top">匯入 zxing 專案</a>
 - 可去作者專欄下載範例檔 或 此頁的zip檔案
@@ -24,7 +28,7 @@ allprojects {
 ```
 - 即可完成匯入
 
-#### 使用 zxing 掃描
+#### <a id="s2" href="#top">使用 zxing 掃描</a>
 - 加入 :
 ```java
 IntentIntegrator integrator = new IntentIntegrator(activity);
@@ -53,7 +57,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 
-#### 使用垂直掃描
+#### <a id="s3" href="#top">使用垂直掃描</a>
 - 於自己專案新創java檔案
 - 將此java類別 繼承 CaptureActivity
 - 於 AndroidManifest 內新增:
@@ -69,7 +73,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 - 最後在使用掃描的程式加入 : integrator.setOrientationLocked(false); 即可完成垂直掃描
 - 參考網址 : http://blog.whomeninja.in/android-barcode-scanner-vertical-orientation-and-camera-flash/
        
-#### 更改掃瞄範圍
+#### <a id="s4" href="#top">更改掃瞄範圍</a>
 - 到 CameraPreview.java 內的 calculateFrames 方法內
 - 重新設定 framingRect
 - 例 :
@@ -114,7 +118,7 @@ private void calculateFrames() {
 }
 ```
 
-#### 觸碰改變掃瞄範圍
+#### <a id="s5" href="#top">觸碰改變掃瞄範圍</a>
 - 找到ViewfinderView.java
 - 新增宣告觸碰位置 : ```private int gTouchX1, gTouchY1, gTouchX2, gTouchY2;```
 - 得到觸碰座標 :
