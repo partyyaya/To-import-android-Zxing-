@@ -111,7 +111,7 @@ private void calculateFrames() {
 }
 ```
 
-#### 觸碰改變掃瞄範圍
+#### 觸碰改變掃瞄範圍(90%完成)
 - 找到ViewfinderView.java
 - 新增宣告觸碰位置 : ```private int gTouchX1, gTouchY1, gTouchX2, gTouchY2;```
 - 得到觸碰座標 :
